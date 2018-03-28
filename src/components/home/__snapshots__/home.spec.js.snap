@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Option renderer 1`] = `
+<div
+  className="planet__container population-level-1"
+>
+  <div
+    className="planet__name"
+  >
+    Keplin
+     
+  </div>
+  <div
+    className="planet__population"
+  >
+    Having population:
+    <span
+      className="planet__population-count"
+    >
+      1000
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Home Option renderer 2`] = `
+<div
+  className="planet__container population-level-undefined"
+>
+  <div
+    className="planet__name"
+  >
+    Pluto
+     
+  </div>
+  <div
+    className="planet__population"
+  >
+    Having population:
+    <span
+      className="planet__population-count"
+    >
+      unknown
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Home rendering 1`] = `"<div class=\\"home-app\\"><div class=\\"header-bar\\"><h2>Home</h2><div class=\\"action-button-logout\\"><span>Logout</span></div></div><input type=\\"text\\" placeholder=\\"start search by typing...\\" value=\\"\\"><div class=\\"options-container\\"></div><div class=\\"error\\"></div></div>"`;

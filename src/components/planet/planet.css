@@ -1,0 +1,38 @@
+.planet__container{
+    border: 1px solid palevioletred;
+    margin: 10px 0;
+    padding: 5px;
+    background: #f2f5dc;
+    box-shadow: 1px 1px 1px;
+}
+
+.planet__name{
+    font-weight: bold;
+
+}
+
+.planet__population{
+
+
+}
+
+.planet__population-count{
+    font-weight: bold;
+}
+
+.population-level-1 .planet__name, .population-level-default .planet__name{
+    font-size: 1em
+}
+
+.population-level-2 .planet__name{
+    font-size: 2em
+}
+
+.population-level-3 .planet__name{
+    font-size: 3em
+}
+
+.population-level-4 .planet__name{
+    font-size: 4em
+}
+

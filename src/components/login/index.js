@@ -1,6 +1,6 @@
 import React, {  PureComponent} from 'react'
 import PropTypes from 'prop-types'
-
+import './login.css'
 class Login extends PureComponent {
 
     static propTypes = {
@@ -58,8 +58,8 @@ class Login extends PureComponent {
     render() {
         const {password, username, isLoading, error} = this.props;
         return (
-            <div className="Home-app">
-                <h2>Welcome to login component</h2>
+            <div className="home-app">
+                <h2 className='welcome-element'>Welcome to login component</h2>
 
                 <div className="fields-section">
                     <div className="field-container">
@@ -83,15 +83,17 @@ class Login extends PureComponent {
                                 />
                         </div>
                     </div>
-                    <span>Username and password are case sensitive</span>
 
-                    <div>
+                </div>
+                <div className="info-section">
+                    <div className='info-item'><span>Username and password are case sensitive</span></div>
+
+                    <div  className='info-item'>
                         <span>For testing: use Luke Skywalker and 19BBY</span>
                     </div>
-                    <div>
+                    <div className='info-item'>
                         <span>For limited calls testing: use C-3PO and 112BBY</span>
                     </div>
-
                 </div>
                 {isLoading ? (
                     <div>
@@ -101,7 +103,7 @@ class Login extends PureComponent {
                         <div className="action-button" onClick={this.onLogin}>Login</div>
                     </div>)
                 }
-                {error && <div><h3>{error}</h3></div>}
+                {error && <div><h3 className='error-message'>{error}</h3></div>}
 
             </div>
         );

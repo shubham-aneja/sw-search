@@ -1,3 +1,20 @@
-/* .Home-app{
-    color: orange;
-} */
+.header-bar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-button-logout{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 5px;
+    background: #7777ff;
+    color: white;
+    box-shadow: 0px 1px 2px black;
+    cursor: pointer;
+}
+
+.options-container{
+    max-height: 355px;
+    overflow: auto;
+}

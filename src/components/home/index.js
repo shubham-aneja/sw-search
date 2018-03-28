@@ -47,8 +47,13 @@ class Home extends Component {
     render() {
         const {isNoResult, options, searchedText, doLogout, error} = this.props;
         return (
-            <div className="Home-app">
-                <h2>Home</h2>
+            <div className="home-app">
+                <div className="header-bar">
+                    <h2>Home</h2>
+                    <div className='action-button-logout' onClick={doLogout}>
+                        <span>Logout</span>
+                    </div>
+                </div>
                 <input type="text" placeholder='start search by typing...' value={searchedText}
                        onChange={this.onValueChange}
                     />
@@ -62,7 +67,7 @@ class Home extends Component {
                 <div className="error">
                     {error}
                 </div>
-                <div onClick={doLogout}>Logout</div>
+
             </div>
         );
     }

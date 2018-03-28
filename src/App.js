@@ -13,8 +13,12 @@ class ProviderApp extends PureComponent {
         return (
 
             <Provider store={store}>
-                <Router history={history} routes={Routes}>
-                </Router>
+                <div className="root-container">
+                    <div className="root">
+                        <Router history={history} routes={Routes}>
+                        </Router>
+                    </div>
+                </div>
             </Provider>
         )
     }

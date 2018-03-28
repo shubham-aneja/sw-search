@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Planet rendering 1`] = `"<div class=\\"planet__container population-level-1\\"><div class=\\"planet__name\\">jimmy jonny </div><div class=\\"planet__population\\">Having population:<span class=\\"planet__population-count\\">1500000</span></div></div>"`;

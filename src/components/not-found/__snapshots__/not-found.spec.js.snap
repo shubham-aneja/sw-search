@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound rendering 1`] = `"<div class=\\"Home-app\\"><h2>404 Not Found</h2></div>"`;

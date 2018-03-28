@@ -10,34 +10,7 @@ const thresholdCalls = 15;
 const forbiddenUser = 'Luke Skywalker';
 
 export const homeOnValueChange = (value)=> {
-    return (dispatch)=> {
-        const shouldCheckTime = getShouldCheckTime();
-        if (shouldCheckTime) {
-            const isMaxCallLimitReached = getIsLimitReached();
-            if (isMaxCallLimitReached) {
-                dispatch(homeSetError("Maximum call limit reached. Please wait for one minute"));
-                return
-            }
-        }
-        /* Reset the error, if there was any*/
-        dispatch(homeSetError(""));
-
-
-        dispatch(homeOnValueUpdate(value));
-
-        api(`${SEARCH_URL}?search=${value}`).then(res => {
-            dispatch(homeSetError(""));
-            if (res.count > 0) {
-                dispatch(homeOnOptionsUpdate(res.results));
-                dispatch(homeSetNoResult(false))
-            } else {
-                dispatch(homeOnOptionsUpdate([]));
-                dispatch(homeSetNoResult(true));
-            }
-        }).catch(e => {
-            dispatch(homeSetError("Something went wrong"));
-        });
-    }
+    return onValueChangeHandler(value)
 };
 
 export const homeOnValueUpdate = (value)=> (
@@ -62,7 +35,7 @@ export const homeSetError = (error)=> (
 );
 
 export const homeDestroy = ()=>({
-    type:Types.HOME_DESTROY
+    type: Types.HOME_DESTROY
 });
 
 
@@ -72,6 +45,7 @@ export const homeSetNoResult = (isNoResult)=> (
     isNoResult
 }
 );
+
 
 /**
  * Only the user Luke Skywalker can make unlimited calls
@@ -116,3 +90,35 @@ const getIsLimitReached = (function getIsLimitReached() {
 
     }
 })();
+
+
+function onValueChangeHandler(value){
+    return (dispatch) =>{
+        const shouldCheckTime = getShouldCheckTime();
+        if (shouldCheckTime) {
+            const isMaxCallLimitReached = getIsLimitReached();
+            if (isMaxCallLimitReached) {
+                alert("Maximum call limit reached. Please wait for one minute");
+                return
+            }
+        }
+        /* Reset the error, if there was any*/
+        dispatch(homeSetError(""));
+
+
+        dispatch(homeOnValueUpdate(value));
+
+        api(`${SEARCH_URL}?search=${value}`).then(res => {
+            dispatch(homeSetError(""));
+            if (res.count > 0) {
+                dispatch(homeOnOptionsUpdate(res.results));
+                dispatch(homeSetNoResult(false))
+            } else {
+                dispatch(homeOnOptionsUpdate([]));
+                dispatch(homeSetNoResult(true));
+            }
+        }).catch(e => {
+            dispatch(homeSetError("Something went wrong"));
+        });
+    }
+}

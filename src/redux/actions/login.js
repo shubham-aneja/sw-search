@@ -31,7 +31,7 @@ export const loginSetLoading = (loading)=> (
 );
 
 export const loginDestroy = ()=>({
-    type:Types.LOGIN_DESTROY
+    type: Types.LOGIN_DESTROY
 });
 
 
@@ -43,11 +43,14 @@ export const loginDoLogout = (payload)=> {
 }
 
 export const loginDoLogin = ({username, password})=> {
+
     return (dispatch)=> {
+
         if (!username || !password) {
             dispatch(loginSetError("Username and password are mandatory for login"));
 
         } else {
+            dispatch(loginSetError(""));
             dispatch(loginSetLoading(true));
             api(`${LOGIN_URL}=${username}`).then(response=> {
                 dispatch(loginSetLoading(false));

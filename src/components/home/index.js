@@ -1,8 +1,6 @@
 import React, { Component} from 'react';
 import './home.css';
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {homeOnValueChange, loginDoLogout, homeDestroy} from '../../redux/actions/index.js'
 import Planet from '../planet'
 import NoResult from '../no-result'
 
@@ -51,7 +49,7 @@ class Home extends Component {
         return (
             <div className="Home-app">
                 <h2>Home</h2>
-                <input type="text" placeholer='start search by typing...' value={searchedText}
+                <input type="text" placeholder='start search by typing...' value={searchedText}
                        onChange={this.onValueChange}
                     />
 
@@ -69,25 +67,5 @@ class Home extends Component {
         );
     }
 }
-
-
-const mapStateToProps = (appState) => {
-    const homeState = appState.home || {};
-
-    return {
-        options: homeState.options,
-        error: homeState.error,
-        isLoading: homeState.isLoading,
-        searchedText: homeState.searchedText,
-        isNoResult: homeState.isNoResult
-    }
-};
-
-const mapDispatchToProps = {
-    onValueChange: homeOnValueChange,
-    doLogout: loginDoLogout,
-    homeDestroy
-};
-Home = connect(mapStateToProps, mapDispatchToProps)(Home);
 
 export default Home

@@ -1,5 +1,5 @@
-import Home from './components/home/index'
-import Login from './components/login'
+import Home from './containers/home'
+import Login from './containers/login'
 import NotFound from './components/not-found'
 const ROUTES = [
     {

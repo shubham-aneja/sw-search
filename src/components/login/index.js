@@ -1,7 +1,5 @@
 import React, {  PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {loginUserNameChange, loginPasswordChange, loginDoLogin, loginDestroy} from '../../redux/actions/index.js'
 
 class Login extends PureComponent {
 
@@ -108,30 +106,6 @@ class Login extends PureComponent {
             </div>
         );
     }
-
-;
-
 }
-
-
-const mapStateToProps = (appState) => {
-    const loginState = appState.login || {};
-
-    return {
-        username: loginState.username,
-        password: loginState.password,
-        error: loginState.error,
-        isLoading: loginState.loading
-    }
-};
-
-const mapDispatchToProps = {
-    onUsernameChange: loginUserNameChange,
-    onPasswordChange: loginPasswordChange,
-    onLogin: loginDoLogin,
-    loginDestroy
-
-};
-Login = connect(mapStateToProps, mapDispatchToProps)(Login)
 
 export default Login

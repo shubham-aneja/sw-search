@@ -5,12 +5,23 @@ export default (state = {username: '', password: ''}, action = {})=> {
 
         case types.LOGIN_USERNAME_CHANGE :
         {
-            const updatedS = {...state, username: action.username}
-            return updatedS
+            return {...state, username: action.username}
         }
         case types.LOGIN_PASSWORD_CHANGE:
         {
             return {...state, password: action.password}
+        }
+        case types.LOGIN_SET_LOADING:
+        {
+            return {...state, loading: action.loading}
+        }
+        case types.LOGIN_SET_ERROR:
+        {
+            return {...state, error: action.error}
+        }
+        case types.LOGIN_DESTROY:
+        {
+            return {}
         }
         default :
         {

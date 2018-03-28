@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import './home.css';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {homeOnValueChange, loginDoLogout} from '../../redux/actions/index.js'
+import {homeOnValueChange, loginDoLogout, homeDestroy} from '../../redux/actions/index.js'
 import Planet from '../planet'
 import NoResult from '../no-result'
 
@@ -13,6 +13,7 @@ class Home extends Component {
         error: PropTypes.string,
         onValueChange: PropTypes.func,
         doLogout: PropTypes.func,
+        homeDestroy: PropTypes.func,
         isLoading: PropTypes.bool,
         searchedText: PropTypes.string,
         isNoResult: PropTypes.bool
@@ -27,7 +28,8 @@ class Home extends Component {
         searchedText: '',
         doLogout: ()=> {
         },
-        isNoResult: false
+        isNoResult: false,
+        homeDestroy: ()=>{}
     };
 
     constructor(props) {
@@ -38,6 +40,11 @@ class Home extends Component {
     onValueChange(e) {
         this.props.onValueChange(e.target.value);
     }
+
+    componentWillUnmount() {
+        this.props.homeDestroy();
+    }
+
 
     render() {
         const {isNoResult, options, searchedText, doLogout, error} = this.props;
@@ -78,7 +85,8 @@ const mapStateToProps = (appState) => {
 
 const mapDispatchToProps = {
     onValueChange: homeOnValueChange,
-    doLogout: loginDoLogout
+    doLogout: loginDoLogout,
+    homeDestroy
 };
 Home = connect(mapStateToProps, mapDispatchToProps)(Home);
 

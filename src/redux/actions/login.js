@@ -16,26 +16,24 @@ export const loginPasswordChange = (password)=> (
 }
 );
 
-export const loginSetLoading = (payload)=> (
+export const loginSetError = (error)=> (
+{
+    type: Types.LOGIN_SET_ERROR,
+    error
+}
+);
+
+export const loginSetLoading = (loading)=> (
 {
     type: Types.LOGIN_SET_LOADING,
-    payload
+    loading
 }
 );
 
-export const loginSuccess = (payload)=> (
-{
-    type: Types.LOGIN_SUCCESS,
-    payload
-}
-);
+export const loginDestroy = ()=>({
+    type:Types.LOGIN_DESTROY
+});
 
-export const loginFailure = (payload)=> (
-{
-    type: Types.LOGIN_FAILURE,
-    payload
-}
-);
 
 export const loginDoLogout = (payload)=> {
     localStorage.removeItem('username');
@@ -46,34 +44,43 @@ export const loginDoLogout = (payload)=> {
 
 export const loginDoLogin = ({username, password})=> {
     return (dispatch)=> {
-        api(`${LOGIN_URL}=${username}`).then(response=> {
-            if (!username && !password) {
-                //todo throw error "Username and password are mangatory"
-            }
-            if (response && response.count === 0) {
-                //    todo throw error invalid username password
-            } else {
-                const { results } = response;
-                let user;
-                for (let i = 0; i < results.length; i++) {
-                    const userInfo = results[i]
+        if (!username || !password) {
+            dispatch(loginSetError("Username and password are mandatory for login"));
 
-                    if (userInfo.name === username && userInfo.birth_year === password) {
-                        user = userInfo;
-                        break;
+        } else {
+            dispatch(loginSetLoading(true));
+            api(`${LOGIN_URL}=${username}`).then(response=> {
+                dispatch(loginSetLoading(false));
+                if (response && response.count === 0) {
+                    dispatch(loginSetError('Invalid username or password'));
+                } else {
+                    const { results } = response;
+                    let user;
+                    for (let i = 0; i < results.length; i++) {
+                        const userInfo = results[i];
+
+                        if (userInfo.name === username && userInfo.birth_year === password) {
+                            user = userInfo;
+                            break;
+                        }
+                    }
+                    if (user) {
+                        localStorage.setItem('username', username);
+                        dispatch(push({pathname: '/home'}));
+                        dispatch(loginPasswordChange(''));
+                        dispatch(loginUserNameChange(''));
+                        dispatch(loginSetError(''));
+
+                    } else {
+                        dispatch(loginSetError('Invalid username or password'));
                     }
                 }
-                if (user) {
-                    localStorage.setItem('username', username);
-                    dispatch(push({pathname: '/home'}));
-                    dispatch(loginPasswordChange(''));
-                    dispatch(loginUserNameChange(''))
+            }).catch(e=> {
+                    dispatch(loginSetLoading(false));
+                    dispatch(loginSetError("Something went wrong"));
                 }
-            }
-        }).catch(e=> {
-                //   todo  throw error" Something went wrong:
-            }
-        )
+            )
+        }
     }
 
 };

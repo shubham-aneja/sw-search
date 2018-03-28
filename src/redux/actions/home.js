@@ -61,6 +61,11 @@ export const homeSetError = (error)=> (
 }
 );
 
+export const homeDestroy = ()=>({
+    type:Types.HOME_DESTROY
+});
+
+
 export const homeSetNoResult = (isNoResult)=> (
 {
     type: Types.HOME_SET_NO_RESULT,

@@ -23,7 +23,14 @@ export default (state = {}, action = {})=> {
             const updatedS = {...state, isNoResult: action.isNoResult};
             return updatedS
         }
-
+        case types.HOME_DESTROY:
+        {
+            return {}
+        }
+        case types.LOGIN_DO_LOGOUT:
+        {
+            return {}
+        }
         default :
         {
             return state;

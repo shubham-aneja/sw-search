@@ -1,7 +1,7 @@
 import React, {  PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {loginUserNameChange, loginPasswordChange, loginDoLogin} from '../../redux/actions/index.js'
+import {loginUserNameChange, loginPasswordChange, loginDoLogin, loginDestroy} from '../../redux/actions/index.js'
 
 class Login extends PureComponent {
 
@@ -10,6 +10,7 @@ class Login extends PureComponent {
         onLogin: PropTypes.func,
         onPasswordChange: PropTypes.func,
         onUsernameChange: PropTypes.func,
+        loginDestroy: PropTypes.func,
         password: PropTypes.string,
         username: PropTypes.string,
         isLoading: PropTypes.bool
@@ -19,7 +20,15 @@ class Login extends PureComponent {
         error: '',
         username: '',
         password: '',
-        isLoading: false
+        isLoading: false,
+        loginDestroy: ()=> {
+        },
+        onLogin: ()=> {
+        },
+        onPasswordChange: ()=> {
+        },
+        onUsernameChange: ()=> {
+        }
     };
 
     constructor(p) {
@@ -44,8 +53,12 @@ class Login extends PureComponent {
         onLogin({username, password})
     }
 
+    componentWillUnmount() {
+        this.props.loginDestroy();
+    }
+
     render() {
-        const {password, username} = this.props;
+        const {password, username, isLoading, error} = this.props;
         return (
             <div className="Home-app">
                 <h2>Welcome to login component</h2>
@@ -73,16 +86,25 @@ class Login extends PureComponent {
                         </div>
                     </div>
                     <span>Username and password are case sensitive</span>
+
                     <div>
                         <span>For testing: use Luke Skywalker and 19BBY</span>
                     </div>
-                <div>
+                    <div>
                         <span>For limited calls testing: use C-3PO and 112BBY</span>
                     </div>
+
                 </div>
-                <div className="actions-section">
-                    <div className="action-button" onClick={this.onLogin}>Login</div>
-                </div>
+                {isLoading ? (
+                    <div>
+                        <h2>Loading...</h2>
+                    </div>) : (
+                    <div className="actions-section">
+                        <div className="action-button" onClick={this.onLogin}>Login</div>
+                    </div>)
+                }
+                {error && <div><h3>{error}</h3></div>}
+
             </div>
         );
     }
@@ -99,14 +121,15 @@ const mapStateToProps = (appState) => {
         username: loginState.username,
         password: loginState.password,
         error: loginState.error,
-        isLoading: loginState.isLoading
+        isLoading: loginState.loading
     }
 };
 
 const mapDispatchToProps = {
     onUsernameChange: loginUserNameChange,
     onPasswordChange: loginPasswordChange,
-    onLogin: loginDoLogin
+    onLogin: loginDoLogin,
+    loginDestroy
 
 };
 Login = connect(mapStateToProps, mapDispatchToProps)(Login)
